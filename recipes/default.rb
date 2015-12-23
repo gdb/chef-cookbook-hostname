@@ -89,13 +89,13 @@ if fqdn
     end
   else
     file '/etc/hostname' do
-      content "#{hostname}\n"
+      content "#{fqdn}\n"
       mode '0644'
       notifies :reload, 'ohai[reload_hostname]', :immediately
     end
 
-    execute "hostname #{hostname}" do
-      only_if { node['hostname'] != hostname }
+    execute "hostname #{fqdn}" do
+      only_if { node['hostname'] != fqdn }
       notifies :reload, 'ohai[reload_hostname]', :immediately
     end
   end
